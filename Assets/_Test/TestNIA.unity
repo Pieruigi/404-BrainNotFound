@@ -134,8 +134,9 @@ GameObject:
   - component: {fileID: 101909560}
   - component: {fileID: 101909559}
   - component: {fileID: 101909558}
+  - component: {fileID: 101909562}
   m_Layer: 0
-  m_Name: NIA
+  m_Name: Nia
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -221,6 +222,18 @@ Transform:
   - {fileID: 1648305486}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &101909562
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 101909557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 344e200252a50414bb3001cbf1a3cc07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &223126784
 GameObject:
   m_ObjectHideFlags: 0

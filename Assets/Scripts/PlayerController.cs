@@ -62,8 +62,6 @@ namespace BNF
 
             currentVelocity = Vector3.MoveTowards(currentVelocity, targetVelocity, turnSpeed * Time.deltaTime);
 
-            Debug.Log($"TEST - Current velocity:{currentVelocity}");
-
             var newPosition = transform.position + currentVelocity * Time.deltaTime;
             newPosition.y = distanceFromFloor;
             transform.position = newPosition;
