@@ -10,7 +10,8 @@ namespace BNF.Editor
     {
         public const string ResourceFolder = "Assets/Resources";
 
-        [MenuItem("Assets/Create/Subroutines/AntiSpywareSlowDownSubroutine")]
+#region subroutines
+        [MenuItem("Assets/Create/404BNF/Subroutines/AntiSpywareSlowDownSubroutine")]
         public static void CreateAntiSpywareSlowDownSubroutine()
         {
             AntiSpywareSlowDownSubroutineAsset asset = ScriptableObject.CreateInstance<AntiSpywareSlowDownSubroutineAsset>();
@@ -30,5 +31,31 @@ namespace BNF.Editor
 
             Selection.activeObject = asset;
         }
+#endregion
+
+
+
+#region programs
+        [MenuItem("Assets/Create/404BNF/Programs/SpywareProgram")]
+        public static void CreateSpywareProgram()
+        {
+            SpywareAsset asset = ScriptableObject.CreateInstance<SpywareAsset>();
+
+            string name = "SpywareProgram.asset";
+
+            string folder = System.IO.Path.Combine(ResourceFolder, ProgramAsset.ResourceFolder);
+
+            if (!System.IO.Directory.Exists(folder))
+                System.IO.Directory.CreateDirectory(folder);
+
+            AssetDatabase.CreateAsset(asset, System.IO.Path.Combine(folder, name));
+
+            AssetDatabase.SaveAssets();
+
+            EditorUtility.FocusProjectWindow();
+
+            Selection.activeObject = asset;
+        }
     }
+#endregion
 }
