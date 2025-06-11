@@ -13,7 +13,14 @@ MonoBehaviour:
   m_Name: AntiSpywareSlowDownSubroutine
   m_EditorClassIdentifier: 
   _name: just-a-pdf.exe
-  minVersion: 0.0.1
-  component: {fileID: 0}
+  minLevel: 0
+  gamePrefab: {fileID: 345814769941485538, guid: abbbc3f226618044e90c43a31343781a,
+    type: 3}
   code: subroutine_01
-  slowDownPower: 10
+  detectionSpeedFactorLevels:
+  - 1
+  - 0.9
+  - 0.8
+  - 0.7
+  - 0.6
+  - 0.5

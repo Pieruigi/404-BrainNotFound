@@ -6,44 +6,41 @@ using UnityEngine;
 
 namespace BNF
 {
+    public enum SubroutineState { Locked, Ready, Running, Cooldown }
+
     public abstract class Subroutine : Singleton<Subroutine>
     {
-        VersionTag minVersion;
-        
+        float minLevel;
 
-        VersionTag version;
-        public VersionTag Version
+
+        float level;
+        public float Level
         {
-            get{ return version; }
+            get { return level; }
         }
 
-        bool running = false;
-        public bool Running
-        {
-            get{ return running; }
-        }
+        SubroutineState state = SubroutineState.Locked;
+
+        SubroutineAsset asset;
 
 
         public virtual void Init(SubroutineAsset asset, string data = null)
         {
-            minVersion = VersionTag.Parse(asset.MinVersion);
+            this.asset = asset;
+            minLevel = asset.MinLevel;
 
 
-            if (string.IsNullOrEmpty(data))
+            if (!string.IsNullOrEmpty(data))
             {
-                version = VersionTag.Parse(data);
+                level = float.Parse(data);
             }
             else
             {
-                version = minVersion;
+                level = minLevel;
             }
 
-            // To be sure
-            if (version < minVersion)
-                version = minVersion;
-
-            if (Nia.Instance.Version <= version)
-                running = true;
+            if (Nia.Instance.Level >= level)
+                state = SubroutineState.Ready;
         }
     }
 }

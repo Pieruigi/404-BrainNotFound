@@ -10,24 +10,21 @@ namespace BNF
 {
     public class Nia : Singleton<Nia>
     {
-        // string version = "0.0.1";
-        // public string Version
-        // {
-        //     get { return version; }
-        // }
+        [SerializeField]
+        Transform subroutinesContainer;
 
+        float level = 0;
+        public float Level
+        {
+            get{ return level; }
+        }
 
 
         List<Subroutine> subroutines = new List<Subroutine>();
 
         string code = "nia";
 
-        VersionTag version;
-        public VersionTag Version
-        {
-            get{ return version; }
-        }
-
+       
 
         protected override void Awake()
         {
@@ -52,22 +49,17 @@ namespace BNF
             if (SaveManager.TryGetCachedValue(code, out var data))
             {
                 //version = data;
-                version = VersionTag.Parse(data);
+                level = float.Parse(data);
             }
             else
             {
-                version = VersionTag.Parse("0.0.1");
+                level = VersionUtility.MinVersion;
             }
 
             // Init subroutines
             InitSubroutines();
         }
-        
-        void CreateSubroutineModule(SubroutineAsset asset, string data)
-        {
-            Debug.Log($"Creating subroutine {asset.Name} with version {(string.IsNullOrEmpty(data) ? asset.MinVersion : data)}");
 
-        }
 
         void InitSubroutines()
         {
@@ -79,7 +71,11 @@ namespace BNF
                     Debug.Log($"Loaded {s.Code} from save file: {data}");
                 }
                 
-                CreateSubroutineModule(s, data);
+                Debug.Log($"Creating subroutine {s.Name} with version {(string.IsNullOrEmpty(data) ? s.MinLevel : data)}");
+
+                // Create a new empty object
+                GameObject obj = Instantiate(s.GamePrefab, subroutinesContainer);
+                obj.GetComponent<Subroutine>().Init(s, data);
             }
 
         }

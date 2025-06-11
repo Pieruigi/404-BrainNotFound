@@ -7,11 +7,11 @@ namespace BNF.Scriptables
     public class AntiSpywareSlowDownSubroutineAsset : SubroutineAsset
     {
         [SerializeField]
-        float slowDownPower = 10; // Percentage
+        float[] detectionSpeedFactorLevels = new float[] { 1.0f, 0.9f, 0.8f, 0.7f, 0.6f, 0.5f };
 
-        public float SlowDownPower
+        public float[] DetectionSpeedFactorLevels
         {
-            get{ return slowDownPower; }
+            get{ return detectionSpeedFactorLevels; }
         }
 
     }

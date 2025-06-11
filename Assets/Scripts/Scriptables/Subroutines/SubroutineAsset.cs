@@ -17,17 +17,17 @@ namespace BNF.Scriptables
         }
 
         [SerializeField]
-        string minVersion;
-        public string MinVersion
+        float minLevel;
+        public float MinLevel
         {
-            get { return name; }
+            get { return minLevel; }
         }
 
         [SerializeField]
-        MonoBehaviour component;
-        public MonoBehaviour Component
+        GameObject gamePrefab;
+        public GameObject GamePrefab
         {
-            get { return component; }
+            get { return gamePrefab; }
         }
 
         [SerializeField]
