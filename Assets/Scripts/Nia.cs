@@ -13,10 +13,10 @@ namespace BNF
         [SerializeField]
         Transform subroutinesContainer;
 
-        float level = 0;
-        public float Level
+        float version = 0;
+        public float Version
         {
-            get{ return level; }
+            get{ return version; }
         }
 
 
@@ -49,11 +49,11 @@ namespace BNF
             if (SaveManager.TryGetCachedValue(code, out var data))
             {
                 //version = data;
-                level = float.Parse(data);
+                version = float.Parse(data);
             }
             else
             {
-                level = VersionUtility.MinVersion;
+                version = VersionUtility.MinVersion;
             }
 
             // Init subroutines

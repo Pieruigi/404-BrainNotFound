@@ -13,7 +13,7 @@ namespace BNF
         {
             base.Init(asset, data);
 
-            detectionSpeedFactor = (asset as AntiSpywareSlowDownSubroutineAsset).DetectionSpeedFactorLevels[Mathf.FloorToInt(Level)];
+            detectionSpeedFactor = (asset as AntiSpywareSlowDownSubroutineAsset).DetectionSpeedFactorLevels[Mathf.FloorToInt(Version)];
         }
 
         

@@ -17,8 +17,8 @@ namespace BNF.Scriptables
         }
 
         [SerializeField]
-        float minLevel;
-        public float MinLevel
+        int minLevel;
+        public int MinLevel
         {
             get { return minLevel; }
         }
