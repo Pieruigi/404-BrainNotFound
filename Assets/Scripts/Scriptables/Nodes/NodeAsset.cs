@@ -37,6 +37,20 @@ namespace BNF.Scriptables
         }
 
         [SerializeField]
+        int minConnections;
+        public int MinConnections
+        {
+            get{ return minConnections; }
+        }
+
+        [SerializeField]
+        int maxConnections;
+        public int MaxConnections
+        {
+            get{ return maxConnections; }
+        }
+
+        [SerializeField]
         GameObject nodeObject;
         public GameObject NodeObject
         {

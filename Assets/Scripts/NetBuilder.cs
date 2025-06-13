@@ -11,24 +11,27 @@ namespace BNF
 
     public class NetBuilder : MonoBehaviour
     {
+        [System.Serializable]
         class Node
         {
+            [SerializeField]
             public NodeType type;
 
             public NodeAsset asset;
 
             public GameObject nodeObject;
 
-            public bool northConnection = false; 
-            public bool eastConnection = false; 
-            public bool southConnection = false; 
-            public bool westConnection = false; 
+            public int deep;
+
+            public Node[] connections = new Node[4]; // North, east, south, west
 
 
             public Node(NodeType type, NodeAsset asset)
             {
                 this.type = type;
                 this.asset = asset;
+                for (int i = 0; i < connections.Length; i++)
+                    connections[i] = null;
             }
 
             public override string ToString()
@@ -41,6 +44,7 @@ namespace BNF
 
         int minNodes = 18, maxNodes = 21;
 
+        [SerializeField]
         List<Node> nodes;
 
 
@@ -56,8 +60,13 @@ namespace BNF
             // Choose how many nodes and which ones will be used
             ChooseNodes();
 
+            // Connections
+            ConnectNodes();
+
             // Create node objects
             CreateNodeObjects();
+
+            
 
             // Arrange nodes 
             ArrangeNodes();
@@ -111,6 +120,85 @@ namespace BNF
 
             DebugNodes();
 
+        }
+
+        void ConnectNodes()
+        {
+            List<Node> remainingList = new List<Node>();
+            foreach (var node in nodes)
+                remainingList.Add(node);
+            int deep = 0;
+            int connectionIndex = -1;
+            int pendingConnections = 0;
+            ConnectNode(null, connectionIndex, remainingList, deep, 0);
+            
+        }
+
+        void ConnectNode(Node fromNode, int fromNodeConnIndex, List<Node> remainingNodes, int deep, int pendingConnections)
+        {
+            if (fromNode == null)
+            {
+                // First node
+                Node node = remainingNodes.Find(n => n.type == NodeType.Enter);
+                remainingNodes.Remove(node);
+                node.deep = deep;
+                int connCount = Random.Range(node.asset.MinConnections, node.asset.MaxConnections);
+                connCount = 1;
+                List<int> indices = GetFreeConnectionIndices(node);
+                var index = Random.Range(0, indices.Count);
+                deep++;
+                pendingConnections = 0;
+                ConnectNode(node, index, remainingNodes, deep, pendingConnections);
+
+            }
+            else
+            {
+                Debug.Log($"From node {fromNode}, fromConnIndex:{fromNodeConnIndex}, remainingCount:{remainingNodes.Count}, deep:{deep}");
+                // Choose another node to connect
+                Node node = null;
+                if (deep < 2)
+                {
+                    // Router preferred
+                    node = remainingNodes.Find(n => n.type == NodeType.Router);
+
+                }
+                if (node == null)
+                {
+                    List<Node> tmp = new List<Node>();
+                    if (pendingConnections == 0)
+                        tmp = remainingNodes.FindAll(n => n.asset.MaxConnections > 1);
+                    else
+                        tmp = remainingNodes.FindAll(n => true);
+
+                    node = tmp[Random.Range(0, tmp.Count)];
+                }
+
+                remainingNodes.Remove(node);
+                node.deep = deep;
+
+                // Update from node connection
+                fromNode.connections[fromNodeConnIndex] = node;
+                // Update new node connection
+                int connIndex = (fromNodeConnIndex + 2) % 4;
+                node.connections[connIndex] = fromNode;
+
+                // Create new connections
+                
+
+            }
+
+        }
+
+        List<int> GetFreeConnectionIndices(Node node)
+        {
+            List<int> indices = new List<int>();
+            for (int i = 0; i < node.connections.Length; i++)
+            {
+                //Debug.Log($"AAAAAAAAA nodeConnection:{node.connections[i]} is null {node.connections[i]==null}");
+                if (node.connections[i] == null)
+                    indices.Add(i);
+            }
+            return indices;
         }
 
         void CreateNodeObjects()

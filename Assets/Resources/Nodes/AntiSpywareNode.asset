@@ -16,6 +16,8 @@ MonoBehaviour:
   minLevel: 0
   minNunber: 1
   maxNumber: 1
+  minConnections: 1
+  maxConnections: 1
   nodeObject: {fileID: 1883523112062653434, guid: e19e7b39454dd3144a6f2b44f5e940e2,
     type: 3}
   detectionSpeedLevels:
