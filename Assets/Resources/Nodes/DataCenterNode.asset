@@ -9,14 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: febc670c1bfc83b45bbf9cfcb218e9e9, type: 3}
-  m_Name: AntiSpywareProgram
+  m_Script: {fileID: 11500000, guid: 39a1338ab2de7f2448c50fbc475150a1, type: 3}
+  m_Name: DataCenterNode
   m_EditorClassIdentifier: 
-  _name: destroy-non-pdf.exe
-  detectionSpeedLevels:
-  - 0.003
-  - 0.004
-  - 0.005
-  - 0.006
-  - 0.007
-  - 0.008
+  _name: 
+  minLevel: 0
+  maxNumber: 2
+  nodeObject: {fileID: 1883523112062653434, guid: b44c3755dfb68f147a99ba00d542351e,
+    type: 3}

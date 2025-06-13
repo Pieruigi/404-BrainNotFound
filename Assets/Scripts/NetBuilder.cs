@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace BNF
 {
-    public enum NodeType { Router, AntiSpyware }
+    public enum NodeType { Router, AntiSpyware, Firewall, SystemAdmin, DataCenter, Research }
 
     public class NetBuilder : MonoBehaviour
     {

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2464279107476968961}
   - component: {fileID: 198665070569910569}
   m_Layer: 0
-  m_Name: AntiSpyware
+  m_Name: DataCenter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e2436eb3ae9d0b8409d821eff905a8b8, type: 2}
+  - {fileID: 2100000, guid: d756940b2e8cf514f9c2e6ed48e4384c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
