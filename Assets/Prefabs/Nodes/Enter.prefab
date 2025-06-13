@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 564152082012578327}
   - component: {fileID: 2064608130979462038}
   - component: {fileID: 2464279107476968961}
-  - component: {fileID: -8704649474900813099}
+  - component: {fileID: 2968951069462914979}
   m_Layer: 0
-  m_Name: DataCenter
+  m_Name: Enter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d756940b2e8cf514f9c2e6ed48e4384c, type: 2}
+  - {fileID: 2100000, guid: 15cc11117afc7d94994e896cb4509134, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -106,7 +106,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-8704649474900813099
+--- !u!114 &2968951069462914979
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,6 +115,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1883523112062653434}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93c59405b0abec744a8b3103e5eab82b, type: 3}
+  m_Script: {fileID: 11500000, guid: dc6c0b139950e334e88f73435185b69d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

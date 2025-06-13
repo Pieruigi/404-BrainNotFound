@@ -160,6 +160,26 @@ namespace BNF.Editor
             Selection.activeObject = asset;
         }
         
+        [MenuItem("Assets/Create/404BNF/Nodes/EnterNode")]
+        public static void CreateEnterNode()
+        {
+            EnterNodeAsset asset = ScriptableObject.CreateInstance<EnterNodeAsset>();
+
+            string name = "EnterNode.asset";
+
+            string folder = System.IO.Path.Combine(ResourceFolder, NodeAsset.ResourceFolder);
+
+            if (!System.IO.Directory.Exists(folder))
+                System.IO.Directory.CreateDirectory(folder);
+
+            AssetDatabase.CreateAsset(asset, System.IO.Path.Combine(folder, name));
+
+            AssetDatabase.SaveAssets();
+
+            EditorUtility.FocusProjectWindow();
+
+            Selection.activeObject = asset;
+        }
        
     }
 #endregion

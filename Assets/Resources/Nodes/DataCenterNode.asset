@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _name: 
   minLevel: 0
+  minNunber: 1
   maxNumber: 2
   nodeObject: {fileID: 1883523112062653434, guid: b44c3755dfb68f147a99ba00d542351e,
     type: 3}

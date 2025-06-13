@@ -19,6 +19,7 @@ namespace BNF
 
         public override void Init(NodeAsset asset, int level)
         {
+            Debug.Log($"[Node initialization - asset:{asset}, level:{level}");
             base.Init(asset, level);
 
             AntiSpywareNodeAsset sa = asset as AntiSpywareNodeAsset;

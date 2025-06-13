@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7101e40fdf30a704dbdef52238fbee75, type: 3}
-  m_Name: Firewall
+  m_Script: {fileID: 11500000, guid: 1c81fe667195e3f4ba736b53d29fa605, type: 3}
+  m_Name: EnterNode
   m_EditorClassIdentifier: 
   _name: 
   minLevel: 0
-  minNunber: 2
-  maxNumber: 4
-  nodeObject: {fileID: 1883523112062653434, guid: ca47d9234f271f147b9efc1e10324f48,
+  minNunber: 1
+  maxNumber: 1
+  nodeObject: {fileID: 1883523112062653434, guid: 034a2f0952a68f84e82cf6f7f1b7b6df,
     type: 3}

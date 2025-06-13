@@ -23,6 +23,13 @@ namespace BNF.Scriptables
         }
 
         [SerializeField]
+        int minNunber;
+        public int MinNumber
+        {
+            get{ return minNunber; }
+        }
+
+        [SerializeField]
         int maxNumber;
         public int MaxNumber
         {
