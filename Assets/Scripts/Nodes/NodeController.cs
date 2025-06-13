@@ -5,21 +5,40 @@ using UnityEngine;
 
 namespace BNF
 {
-    public class NodeController : MonoBehaviour
+
+    public abstract class NodeController : MonoBehaviour
     {
-        List<Program> programs;
 
+        NodeAsset asset;
+        int level;
 
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
+        bool running = false;
+        
 
         // Update is called once per frame
-        void Update()
+        protected virtual void Update()
+        {
+            if (!running) return;
+            DoUpdate();
+        }
+
+        
+
+        public virtual void Init(NodeAsset asset, int level)
+        {
+            this.asset = asset;
+            this.level = level;
+        }
+
+        public virtual void StartNode()
+        {
+            running = true;
+        }
+
+        public virtual void DoUpdate()
         {
 
         }
+        
     }
 }

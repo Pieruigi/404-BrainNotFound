@@ -10,7 +10,7 @@ namespace BNF.Editor
     {
         public const string ResourceFolder = "Assets/Resources";
 
-#region subroutines
+        #region subroutines
         [MenuItem("Assets/Create/404BNF/Subroutines/AntiSpywareSlowDownSubroutine")]
         public static void CreateAntiSpywareSlowDownSubroutine()
         {
@@ -31,19 +31,17 @@ namespace BNF.Editor
 
             Selection.activeObject = asset;
         }
-#endregion
+        #endregion
 
-
-
-#region programs
-        [MenuItem("Assets/Create/404BNF/Programs/SpywareProgram")]
+#region nodes
+        [MenuItem("Assets/Create/404BNF/Nodes/AntiSpywareNode")]
         public static void CreateSpywareProgram()
         {
-            SpywareAsset asset = ScriptableObject.CreateInstance<SpywareAsset>();
+            AntiSpywareNodeAsset asset = ScriptableObject.CreateInstance<AntiSpywareNodeAsset>();
 
-            string name = "SpywareProgram.asset";
+            string name = "AntiSpywareNode.asset";
 
-            string folder = System.IO.Path.Combine(ResourceFolder, ProgramAsset.ResourceFolder);
+            string folder = System.IO.Path.Combine(ResourceFolder, NodeAsset.ResourceFolder);
 
             if (!System.IO.Directory.Exists(folder))
                 System.IO.Directory.CreateDirectory(folder);
@@ -58,4 +56,29 @@ namespace BNF.Editor
         }
     }
 #endregion
-}
+
+
+        // #region programs
+        //         [MenuItem("Assets/Create/404BNF/Programs/SpywareProgram")]
+        //         public static void CreateSpywareProgram()
+        //         {
+        //             AntiSpywareAsset asset = ScriptableObject.CreateInstance<AntiSpywareAsset>();
+
+        //             string name = "SpywareProgram.asset";
+
+        //             string folder = System.IO.Path.Combine(ResourceFolder, ProgramAsset.ResourceFolder);
+
+        //             if (!System.IO.Directory.Exists(folder))
+        //                 System.IO.Directory.CreateDirectory(folder);
+
+        //             AssetDatabase.CreateAsset(asset, System.IO.Path.Combine(folder, name));
+
+        //             AssetDatabase.SaveAssets();
+
+        //             EditorUtility.FocusProjectWindow();
+
+        //             Selection.activeObject = asset;
+        //         }
+        //     }
+        // #endregion
+    }

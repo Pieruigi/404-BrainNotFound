@@ -8,6 +8,7 @@ namespace BNF
 {
     public class SaveManager// : SingletonPersistent<SaveManager>
     {
+        
         static Dictionary<string, string> data = new Dictionary<string, string>();
 
         static string fileName = "save.txt"; // Change it with the next update

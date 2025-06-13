@@ -10,13 +10,19 @@ namespace BNF
 
     public abstract class Subroutine : Singleton<Subroutine>
     {
-        float minVersion;
+        int minLevel;
 
 
-        float version;
-        public float Version
+        int level;
+        public int Level
         {
-            get { return version; }
+            get { return level; }
+        }
+
+        int stability;
+        public int Stability
+        {
+            get { return stability; }
         }
 
         SubroutineState state = SubroutineState.Locked;
@@ -27,20 +33,29 @@ namespace BNF
         public virtual void Init(SubroutineAsset asset, string data = null)
         {
             this.asset = asset;
-            minVersion = asset.MinLevel;
+            minLevel = asset.MinLevel;
 
 
             if (!string.IsNullOrEmpty(data))
             {
-                version = float.Parse(data);
+                string[] s = data.Split("|");
+                level = int.Parse(s[0]);
+                stability = int.Parse(s[1]);
             }
             else
             {
-                version = minVersion;
+                level = minLevel;
+                stability = VersionUtility.MinStability;
             }
 
-            if (Nia.Instance.Version >= version)
+            if (Nia.Instance.Level >= level)
                 state = SubroutineState.Ready;
+        }
+
+        public void StartSubroutine()
+        {
+            if (state != SubroutineState.Ready) return;
+            state = SubroutineState.Running;
         }
     }
 }

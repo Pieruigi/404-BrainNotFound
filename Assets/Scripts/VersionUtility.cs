@@ -7,8 +7,11 @@ namespace BNF
 {
     public class VersionUtility
     {
-        public const float MaxVersion = 5.00f;
-        public const float MinVersion = 0.01f;
+        public const int MaxLevel = 5;
+        public const int MinLevel = 0;
+
+        public const int MinStability = 0;
+        public const int MaxStability = 99;
 
 
 
@@ -139,7 +142,7 @@ namespace BNF
         //     return true;
         // }
 
-        
-        
+
+
     }
 }

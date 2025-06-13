@@ -6,24 +6,29 @@ using UnityEngine;
 
 namespace BNF
 {
-    public enum ProgramState { Blocked, Ready, Running }
+    public enum ProgramState { Blocked, Ready, Running, Paused }
 
     public abstract class Program : MonoBehaviour
     {
+        public delegate void OnCreatedDelegate(Program program);
+        public static OnCreatedDelegate OnCreated;
+
+        
+
         ProgramState state = ProgramState.Ready;
 
         ProgramAsset asset;
-        
+
 
         int level;
 
-        
-        
+
+
 
         // Start is called before the first frame update
         void Start()
         {
-
+            OnCreated?.Invoke(this);
         }
 
         // Update is called once per frame
@@ -41,8 +46,8 @@ namespace BNF
                     UpdateReadyState();
                     break;
             }
-            
-                
+
+
         }
 
         protected virtual void UpdateRunningState() { }
@@ -54,7 +59,37 @@ namespace BNF
         {
             this.asset = asset;
             this.level = level;
-            
+
+        }
+
+        public void StartProgram()
+        {
+            if (state != ProgramState.Ready) return;
+            state = ProgramState.Running;
+        }
+
+        public void StopProgram()
+        {
+            if (state != ProgramState.Running) return;
+            state = ProgramState.Ready;
+        }
+
+        public void BlockProgram()
+        {
+            if (state == ProgramState.Blocked) return;
+            state = ProgramState.Blocked;
+        }
+
+        public void UnblockProgram()
+        {
+            if (state != ProgramState.Blocked) return;
+            state = ProgramState.Ready;
+        }
+
+        public void PauseProgram()
+        {
+            if (state != ProgramState.Running) return;
+            state = ProgramState.Paused;
         }
     }
 }

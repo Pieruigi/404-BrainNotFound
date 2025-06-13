@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
@@ -13,24 +14,29 @@ namespace BNF
         [SerializeField]
         Transform subroutinesContainer;
 
-        float version = 0;
-        public float Version
+        int level = 0;
+        public int Level
         {
-            get{ return version; }
+            get { return level; }
         }
 
+        int stability = 0;
+        public int Stability
+        {
+            get { return stability; }
+        }
 
         List<Subroutine> subroutines = new List<Subroutine>();
 
         string code = "nia";
 
-       
+
 
         protected override void Awake()
         {
             base.Awake();
 
-        
+
             Init();
 
         }
@@ -38,7 +44,7 @@ namespace BNF
         // Start is called before the first frame update
         void Start()
         {
-         
+
         }
 
 
@@ -48,12 +54,15 @@ namespace BNF
             // Init Nia version
             if (SaveManager.TryGetCachedValue(code, out var data))
             {
+                string[] s = data.Split("|");
                 //version = data;
-                version = float.Parse(data);
+                level = int.Parse(s[0]);
+                stability = int.Parse(s[1]);
             }
             else
             {
-                version = VersionUtility.MinVersion;
+                level = VersionUtility.MinLevel;
+                stability = VersionUtility.MinStability;
             }
 
             // Init subroutines
@@ -70,16 +79,41 @@ namespace BNF
                 {
                     Debug.Log($"Loaded {s.Code} from save file: {data}");
                 }
-                
+
                 Debug.Log($"Creating subroutine {s.Name} with version {(string.IsNullOrEmpty(data) ? s.MinLevel : data)}");
 
                 // Create a new empty object
                 GameObject obj = Instantiate(s.GamePrefab, subroutinesContainer);
-                obj.GetComponent<Subroutine>().Init(s, data);
+                var sub = obj.GetComponent<Subroutine>();
+                sub.Init(s, data);
+                subroutines.Add(sub);
             }
 
         }
 
+        Subroutine GetSubroutineByType(Type type)
+        {
+            foreach (var sub in subroutines)
+            {
+                if (sub.GetType() == type)
+                    return sub;
+            }
+
+            return null;
+        }
+
+        public float GetAntiSpywareDetectionSpeedFactor()
+        {
+            var sub = GetSubroutineByType(typeof(AntiSpywareSlowDownSubroutine));
+            return (sub as AntiSpywareSlowDownSubroutine).DetectionSpeedFactor;
+        }
+
+        public void StartSubroutineAll()
+        {
+            Debug.Log("TEST - NIA - Starting subroutines...");
+            foreach (var subroutine in subroutines)
+                subroutine.StartSubroutine();
+        }
 
     }
 }

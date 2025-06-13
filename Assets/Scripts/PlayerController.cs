@@ -38,6 +38,18 @@ namespace BNF
         float maxPitch = 80;
 
         Vector3 currentVelocity = Vector3.zero;
+        public Vector3 Velocity
+        {
+            get{ return currentVelocity; }
+        }
+
+        CharacterController cc;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            cc = GetComponent<CharacterController>();
+        }
 
         // Start is called before the first frame update
         void Start()
@@ -64,7 +76,8 @@ namespace BNF
 
             var newPosition = transform.position + currentVelocity * Time.deltaTime;
             newPosition.y = distanceFromFloor;
-            transform.position = newPosition;
+            //transform.position = newPosition;
+            cc.Move(currentVelocity * Time.deltaTime);
         }
 
         private void Rotate()
