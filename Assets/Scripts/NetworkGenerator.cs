@@ -1,0 +1,151 @@
+using System.Collections.Generic;
+using BNF.Scriptables;
+using UnityEngine;
+
+namespace BNF
+{
+    public enum NodeType { None, Enter, Router, AntiSpyware, Firewall, SystemAdmin, DataCenter, Research }
+
+    public class NetworkGenerator : MonoBehaviour
+    {
+        [SerializeField] int minNodes = 20;
+        [SerializeField] int maxNodes = 40;
+        [SerializeField, Range(0f, 1f)] float loopProbability = 0.2f;
+
+        private List<Node> nodes = new();
+        private Dictionary<Vector2Int, int> grid = new();
+
+        [System.Serializable]
+        class Node
+        {
+            [SerializeField]
+            public NodeType type;
+
+            public NodeAsset asset;
+            public GameObject nodeObject;
+            public int deep;
+            public int[] connections = new int[4]; // N, E, S, W
+
+            public Node(NodeType type)
+            {
+                this.type = type;
+                asset = null;
+                for (int i = 0; i < connections.Length; i++)
+                    connections[i] = -1;
+            }
+
+            public override string ToString()
+            {
+                return $"[Node - Type:{type}, Asset:{(asset != null ? asset.name : "null")}]";
+            }
+        }
+
+        private readonly Vector2Int[] directions = {
+            new Vector2Int(0, 1),   // N
+            new Vector2Int(1, 0),   // E
+            new Vector2Int(0, -1),  // S
+            new Vector2Int(-1, 0)   // W
+        };
+
+        void Start()
+        {
+            GenerateNetwork();
+            DebugNodes();
+        }
+
+        void DebugNodes()
+        {
+            Debug.Log("**********************************************************************************************************************");
+            foreach (Node node in nodes)
+            {
+                Debug.Log($"Node:{nodes.IndexOf(node)}, Conns:{node.connections[0]} {node.connections[1]} {node.connections[2]} {node.connections[3]}, Deep:{node.deep}");
+            }
+            Debug.Log("**********************************************************************************************************************");
+        }
+
+        void GenerateNetwork()
+        {
+            nodes.Clear();
+            grid.Clear();
+
+            Queue<Vector2Int> frontier = new();
+            CreateNode(Vector2Int.zero);
+            frontier.Enqueue(Vector2Int.zero);
+
+            while (nodes.Count < maxNodes && frontier.Count > 0)
+            {
+                Vector2Int currentPos = frontier.Dequeue();
+                int currentIndex = grid[currentPos];
+                Node currentNode = nodes[currentIndex];
+
+                List<int> dirs = new List<int> { 0, 1, 2, 3 };
+                Shuffle(dirs);
+
+                int maxConnectionsForThisNode = Random.Range(1, 5); // tra 1 e 4
+                int connectionsCreated = 0;
+
+                foreach (int dir in dirs)
+                {
+                    if (nodes.Count >= maxNodes || connectionsCreated >= maxConnectionsForThisNode)
+                        break;
+                    {
+                        if (nodes.Count >= maxNodes) break;
+
+                        Vector2Int nextPos = currentPos + directions[dir];
+
+                        if (grid.ContainsKey(nextPos))
+                        {
+                            int existingIndex = grid[nextPos];
+                            Node existingNode = nodes[existingIndex];
+
+                            if (Random.value < loopProbability &&
+                                currentNode.connections[dir] == -1 &&
+                                existingNode.connections[Opposite(dir)] == -1)
+                            {
+                                currentNode.connections[dir] = existingIndex;
+                                existingNode.connections[Opposite(dir)] = currentIndex;
+                            }
+
+                            continue;
+                        }
+
+                        int newIndex = CreateNode(nextPos);
+                        currentNode.connections[dir] = newIndex;
+                        nodes[newIndex].connections[Opposite(dir)] = currentIndex;
+                        frontier.Enqueue(nextPos);
+                        connectionsCreated++;
+                    }
+                }
+            }
+
+            if (nodes.Count < minNodes)
+            {
+                Debug.LogWarning($"Solo {nodes.Count} nodi generati, ma il minimo richiesto è {minNodes}");
+            }
+
+            Debug.Log($"Generati {nodes.Count} nodi.");
+        }
+
+        int CreateNode(Vector2Int pos)
+        {
+            Node newNode = new Node(NodeType.None);
+            nodes.Add(newNode);
+            grid[pos] = nodes.Count - 1;
+            return nodes.Count - 1;
+        }
+
+        int Opposite(int dir)
+        {
+            return (dir + 2) % 4;
+        }
+
+        void Shuffle(List<int> list)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                int j = Random.Range(i, list.Count);
+                (list[i], list[j]) = (list[j], list[i]);
+            }
+        }
+    }
+}
