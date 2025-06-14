@@ -1238,7 +1238,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1013733527
 Transform:
   m_ObjectHideFlags: 0
@@ -2114,8 +2114,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1813064259}
   - component: {fileID: 1813064258}
+  - component: {fileID: 1813064260}
   m_Layer: 0
-  m_Name: NetBuilder
+  m_Name: NetGenerator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2133,6 +2134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a7a5453111dc294db1c847cb3990400, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nodes: []
 --- !u!4 &1813064259
 Transform:
   m_ObjectHideFlags: 0
@@ -2148,6 +2150,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1813064260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1813064257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c6648c17f1918e4fa70f37d9a418ce2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minNodes: 9
+  maxNodes: 12
+  loopProbability: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
